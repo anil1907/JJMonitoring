@@ -8,5 +8,6 @@ namespace Business.Abstract.Users
     public interface IUserService
     {
         User Login(string userName, string password);
+        User Register(string userName, string password);
     }
 }

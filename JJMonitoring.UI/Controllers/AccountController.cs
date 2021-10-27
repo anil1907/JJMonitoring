@@ -42,6 +42,19 @@ namespace JJMonitoring.UI.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Register(AccountRegisterViewModel model)
+        {
+            //if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password))
+            //{
+            //    ViewBag.InvalidMessage = "Tüm alanları doldurun!";
+            //    return View();
+            //}
+
+            User user = _userService.Register(model.Username, model.Password);
+
+            return View();
+        }
 
     }
 }

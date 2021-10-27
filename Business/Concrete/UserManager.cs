@@ -1,6 +1,7 @@
 ﻿using Business.Abstract.Users;
 using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract.Users;
+using Entity.Enums;
 using Entity.Users;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Business.Concrete
 
         public UserManager(IUsersDal usersDal)
         {
-            _userDal = usersDal; 
+            _userDal = usersDal;
         }
 
         public User Login(string userName, string password)
@@ -36,5 +37,24 @@ namespace Business.Concrete
             }
 
         }
+        public User Register(string userName, string password)
+        {
+            User entity = new User();
+            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
+            {
+                byte[] passwordSalt, passwordHash;
+                HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                entity.PasswordHash = passwordHash;
+                entity.PasswordSalt = passwordSalt;
+                entity.BranchId = 3;
+                entity.UserRole = UserRole.Admin;
+                var userId = _userDal.Add(entity);
+                return _userDal.Get(x => x.Id == userId);
+            }
+            else
+                return null;
+
+        }
+
     }
 }
