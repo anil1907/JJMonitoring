@@ -4,6 +4,7 @@ using Entity.Users;
 using JJMonitoring.UI.Models.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -44,12 +45,11 @@ namespace JJMonitoring.UI.Controllers
                 ViewBag.InvalidMessage = "Kullanıcı kimliği doğrulanamadı.";
                 return View();
             }
-            List<EnumModel> enums = ((UserRole[])Enum.GetValues(typeof(UserRole))).Select(c => new EnumModel() { Value = (int)c, Name = c.ToString() }).ToList();
 
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             claims.Add(new Claim(ClaimTypes.Name, user.UserName));
-            claims.Add(new Claim(ClaimTypes.Role, enums.FirstOrDefault(x => x.Value == (int)user.UserRole).Name));
+            claims.Add(new Claim(ClaimTypes.Role, Enum.GetName(typeof(UserRole), (int)user.UserRole)));
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var principal = new ClaimsPrincipal(identity);
