@@ -12,8 +12,15 @@ namespace JJMonitoring.UI.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
         public IActionResult Login()
         {
+
+
             return View();
         }
 

@@ -12,6 +12,11 @@ namespace Business.Concrete
     {
         private IUsersDal _userDal;
 
+        public UserManager(IUsersDal usersDal)
+        {
+            _userDal = usersDal; 
+        }
+
         public User Login(string userName, string password)
         {
             User user = _userDal.Get(u => u.UserName.Equals(userName));
