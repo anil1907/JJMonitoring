@@ -1,10 +1,13 @@
 ﻿using Business.Abstract.Users;
 using Entity.Users;
 using JJMonitoring.UI.Models.User;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace JJMonitoring.UI.Controllers
@@ -35,13 +38,31 @@ namespace JJMonitoring.UI.Controllers
 
             User user = _userService.Login(model.Username, model.Password);
 
-            return View();
+            if(user == null)
+            {
+                ViewBag.InvalidMessage = "Kullanıcı kimliği doğrulanamadı.";
+                return View();
+            }
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            claims.Add(new Claim(ClaimTypes.Role, user.UserRole.ToString()));
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var principal = new ClaimsPrincipal(identity);
+
+            var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Register(AccountRegisterViewModel model)
         {
