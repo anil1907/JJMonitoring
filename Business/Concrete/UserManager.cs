@@ -48,6 +48,7 @@ namespace Business.Concrete
                 entity.PasswordSalt = passwordSalt;
                 entity.BranchId = 3;
                 entity.UserRole = UserRole.Admin;
+                entity.UserName = userName;
                 var userId = _userDal.Add(entity);
                 return _userDal.Get(x => x.Id == userId);
             }
