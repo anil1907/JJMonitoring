@@ -1,4 +1,5 @@
 ﻿using Entity.Users;
+using JJMonitoring.UI.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,20 @@ namespace JJMonitoring.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User user)
+        public IActionResult Login(AccountLoginViewModel user)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.InvalidMessage = "Tüm alanları doldurun!";
+                return View();
+            }
+
+            if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password))
+            {
+                ViewBag.InvalidMessage = "Tüm alanları doldurun!";
+                return View();
+            }
+
             return View();
         }
     }
