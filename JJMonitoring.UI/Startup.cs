@@ -1,3 +1,7 @@
+using Business.Abstract.Users;
+using Business.Concrete;
+using DataAccess.Abstract.Users;
+using DataAccess.Concrete.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +29,9 @@ namespace JJMonitoring.UI
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped<IUserService,UserManager>();
+            services.AddScoped<IUsersDal,EfUsersDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +58,7 @@ namespace JJMonitoring.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

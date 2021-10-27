@@ -1,0 +1,95 @@
+﻿@using Entity.Users
+@model User
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V18</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/util.css">
+	<link rel="stylesheet" type="text/css" href="~/logintemp/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" asp-controller="Account" asp-action="Login" method="post" role="form">
+					<span class="login100-form-title p-b-43">
+						Jolly Joker
+					</span>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate = "Lütfen uygun bir e-mail adresi giriniz.">
+						<input asp-for="UserName" class="input100" type="text" name="UserName">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Email</span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate="Geçersiz şifre">
+						<input asp-for="Password" class="input100" type="password" name="Password">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Giriş
+						</button>
+					</div>
+				</form>
+
+				<div class="login100-more" style="background-image: url(https://jjpubkayseri.jollyjoker.com.tr/pub-carousel/Slider_3.jpg);">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	
+	
+<!--===============================================================================================-->
+	<script src="~/logintemp/js/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="~/logintemp/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="~/logintemp/js/popper.js"></script>
+	<script src="~/logintemp/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="~/logintemp/js/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="~/logintemp/js/moment.min.js"></script>
+	<script src="~/logintemp/js/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="~/logintemp/js/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="~/logintemp/js/main.js"></script>
+
+</body>
+</html>
