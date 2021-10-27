@@ -1,4 +1,5 @@
-﻿using Entity.Users;
+﻿using Business.Abstract.Users;
+using Entity.Users;
 using JJMonitoring.UI.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,25 +11,22 @@ namespace JJMonitoring.UI.Controllers
 {
     public class AccountController : Controller
     {
+        private IUserService _userService;
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(AccountLoginViewModel user)
+        public IActionResult Login(AccountLoginViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password))
             {
                 ViewBag.InvalidMessage = "Tüm alanları doldurun!";
                 return View();
             }
 
-            if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password))
-            {
-                ViewBag.InvalidMessage = "Tüm alanları doldurun!";
-                return View();
-            }
+            User user = _userService.Login(model.Username, model.Password);
 
             return View();
         }
