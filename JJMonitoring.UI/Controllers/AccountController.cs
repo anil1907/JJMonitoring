@@ -1,4 +1,5 @@
 ﻿using Business.Abstract.Users;
+using Entity.Enums;
 using Entity.Users;
 using JJMonitoring.UI.Models.User;
 using Microsoft.AspNetCore.Authentication;
@@ -38,17 +39,17 @@ namespace JJMonitoring.UI.Controllers
 
             User user = _userService.Login(model.Username, model.Password);
 
-            if(user == null)
+            if (user == null)
             {
                 ViewBag.InvalidMessage = "Kullanıcı kimliği doğrulanamadı.";
                 return View();
             }
+            List<EnumModel> enums = ((UserRole[])Enum.GetValues(typeof(UserRole))).Select(c => new EnumModel() { Value = (int)c, Name = c.ToString() }).ToList();
 
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             claims.Add(new Claim(ClaimTypes.Name, user.UserName));
-            claims.Add(new Claim(ClaimTypes.Role, user.UserRole.ToString()));
-
+            claims.Add(new Claim(ClaimTypes.Role, enums.FirstOrDefault(x => x.Value == (int)user.UserRole).Name));
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var principal = new ClaimsPrincipal(identity);
