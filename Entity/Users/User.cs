@@ -9,7 +9,8 @@ namespace Entity.Users
     public class User : BaseEntity
     {
         public string UserName { get; set; }
-        public string Password { get; set; }
-        public UserRole UserRole{ get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public UserRole UserRole { get; set; }
     }
 }
