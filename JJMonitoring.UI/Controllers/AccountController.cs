@@ -63,8 +63,11 @@ namespace JJMonitoring.UI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Register()
+        public IActionResult Register(string Message)
         {
+            if(string.IsNullOrEmpty(Message))
+                ViewBag.InvalideMessage = Message;
+
             List<EnumModel> enums = ((UserRole[])Enum.GetValues(typeof(UserRole))).Select(c => new EnumModel() { Value = (int)c, Name = c.ToString() }).ToList();
             ViewBag.RoleList = enums;
             ViewBag.BranchList = _branchService.GetBranches();
@@ -75,15 +78,10 @@ namespace JJMonitoring.UI.Controllers
         public IActionResult Register(AccountRegisterViewModel model)
         {
             if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.RetryPassword) || model.BranchId == 0 || (int)model.UserRole == 0)
-            {
-                ViewBag.InvalidMessage = "Tüm alanları doldurun!";
-                return RedirectToAction("Register", "Account");
-            }
+                return RedirectToAction("Register", "Account", new { Message = "Tüm alanları doldurun!" });
             if (model.Password != model.RetryPassword)
-            {
-                ViewBag.InvalidMessage = "Şifreler Eşleşmiyor";
-                return RedirectToAction("Register", "Account");
-            }
+                return RedirectToAction("Register", "Account", new { Message = "Şifreler Eşleşmiyor" });
+
             User user = _userService.RegisterWithModel(model);
             if (user != null)
                 return RedirectToAction("Login", "Account");
