@@ -6,7 +6,7 @@ namespace Entity.Enums
 {
     public enum UserRole
     {
-        Admin,
+        Admin=1,
         SuperUser,
         User
     }
