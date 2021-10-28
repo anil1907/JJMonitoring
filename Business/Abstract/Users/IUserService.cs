@@ -1,4 +1,5 @@
-﻿using Entity.Users;
+﻿using Entity.Models.User;
+using Entity.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Business.Abstract.Users
     public interface IUserService
     {
         User Login(string userName, string password);
-        User Register(string userName, string password);
+        User RegisterWithModel(AccountRegisterViewModel model);
     }
 }

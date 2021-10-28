@@ -1,4 +1,4 @@
-﻿using JJMonitoring.UI.Models;
+﻿using Entity.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JJMonitoring.UI.Models.User
+namespace Entity.Models.User
 {
     public class AccountLoginViewModel
     {

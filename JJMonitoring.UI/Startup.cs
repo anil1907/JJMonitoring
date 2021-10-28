@@ -1,6 +1,10 @@
+using Business.Abstract.Branch;
 using Business.Abstract.Users;
 using Business.Concrete;
+using Business.Concrete.Branch;
+using DataAccess.Abstract.Branch;
 using DataAccess.Abstract.Users;
+using DataAccess.Concrete.Branch;
 using DataAccess.Concrete.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -41,6 +45,9 @@ namespace JJMonitoring.UI
           });
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped<IUsersDal, EfUsersDal>();
+            services.AddScoped<IBranchDal, EfBranchDal>();
+            services.AddScoped<IBranchService, BranchManager>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

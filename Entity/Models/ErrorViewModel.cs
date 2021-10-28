@@ -1,6 +1,6 @@
 using System;
 
-namespace JJMonitoring.UI.Models
+namespace Entity.Models
 {
     public class ErrorViewModel
     {

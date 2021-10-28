@@ -1,7 +1,8 @@
-﻿using Business.Abstract.Users;
+﻿using Business.Abstract.Branch;
+using Business.Abstract.Users;
 using Entity.Enums;
 using Entity.Users;
-using JJMonitoring.UI.Models.User;
+using Entity.Models.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +18,13 @@ namespace JJMonitoring.UI.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+        private IBranchService _branchService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IBranchService branchService)
         {
             _userService = userService;
+            _branchService = branchService;
+
         }
         public IActionResult Login()
         {
@@ -61,21 +65,26 @@ namespace JJMonitoring.UI.Controllers
 
         public IActionResult Register()
         {
+            List<EnumModel> enums = ((UserRole[])Enum.GetValues(typeof(UserRole))).Select(c => new EnumModel() { Value = (int)c, Name = c.ToString() }).ToList();
+            ViewBag.RoleList = enums;
+            ViewBag.BranchList = _branchService.GetBranches();
             return View();
         }
 
         [HttpPost]
         public IActionResult Register(AccountRegisterViewModel model)
         {
-            //if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password))
-            //{
-            //    ViewBag.InvalidMessage = "Tüm alanları doldurun!";
-            //    return View();
-            //}
+            if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.RetryPassword) || model.BranchId==0 || (int)model.UserRole==0)
+            {
+                ViewBag.InvalidMessage = "Tüm alanları doldurun!";
+                return RedirectToAction("Register", "Account");
 
-            User user = _userService.Register(model.Username, model.Password);
+            }
 
-            return View();
+            User user = _userService.RegisterWithModel(model);
+
+            return RedirectToAction("Login", "Account");
+
         }
 
     }

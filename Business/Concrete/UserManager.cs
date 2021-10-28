@@ -2,6 +2,7 @@
 using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract.Users;
 using Entity.Enums;
+using Entity.Models.User;
 using Entity.Users;
 using System;
 using System.Collections.Generic;
@@ -37,23 +38,19 @@ namespace Business.Concrete
             }
 
         }
-        public User Register(string userName, string password)
+        public User RegisterWithModel(AccountRegisterViewModel model)
         {
             User entity = new User();
-            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
-            {
-                byte[] passwordSalt, passwordHash;
-                HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-                entity.PasswordHash = passwordHash;
-                entity.PasswordSalt = passwordSalt;
-                entity.BranchId = 3;
-                entity.UserRole = UserRole.Admin;
-                entity.UserName = userName;
-                var userId = _userDal.Add(entity);
-                return _userDal.Get(x => x.Id == userId);
-            }
-            else
-                return null;
+            byte[] passwordSalt, passwordHash;
+            HashingHelper.CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
+            entity.PasswordHash = passwordHash;
+            entity.PasswordSalt = passwordSalt;
+            entity.BranchId = model.BranchId;
+            entity.UserRole = (UserRole)model.UserRole;
+            entity.UserName = model.Username;
+            var userId = _userDal.Add(entity);
+            return _userDal.Get(x => x.Id == userId);
+
 
         }
 
