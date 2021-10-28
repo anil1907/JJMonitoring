@@ -74,17 +74,21 @@ namespace JJMonitoring.UI.Controllers
         [HttpPost]
         public IActionResult Register(AccountRegisterViewModel model)
         {
-            if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.RetryPassword) || model.BranchId==0 || (int)model.UserRole==0)
+            if (string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.RetryPassword) || model.BranchId == 0 || (int)model.UserRole == 0)
             {
                 ViewBag.InvalidMessage = "Tüm alanları doldurun!";
                 return RedirectToAction("Register", "Account");
-
             }
-
+            if (model.Password != model.RetryPassword)
+            {
+                ViewBag.InvalidMessage = "Şifreler Eşleşmiyor";
+                return RedirectToAction("Register", "Account");
+            }
             User user = _userService.RegisterWithModel(model);
+            if (user != null)
+                return RedirectToAction("Login", "Account");
 
-            return RedirectToAction("Login", "Account");
-
+            return RedirectToAction("Register", "Account");
         }
 
     }
