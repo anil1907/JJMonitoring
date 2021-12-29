@@ -8,4 +8,12 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Abstract\Images\" />
+    <None Remove="Concrete\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Abstract\Images\" />
+    <Folder Include="Concrete\Images\" />
+  </ItemGroup>
 </Project>
