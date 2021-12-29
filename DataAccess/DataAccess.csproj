@@ -10,10 +10,20 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.20" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.20" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Microsoft.PowerShell.Native" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Entity\Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Abstract\Images\" />
+    <None Remove="Concrete\Images\" />
+    <None Remove="Microsoft.PowerShell.Native" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Abstract\Images\" />
+    <Folder Include="Concrete\Images\" />
+  </ItemGroup>
 </Project>

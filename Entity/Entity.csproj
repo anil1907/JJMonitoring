@@ -8,4 +8,12 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\ImageInfo\" />
+    <None Remove="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\ImageInfo\" />
+    <Folder Include="Images\" />
+  </ItemGroup>
 </Project>

@@ -1,10 +1,14 @@
 using Business.Abstract.Branch;
+using Business.Abstract.Images;
 using Business.Abstract.Users;
 using Business.Concrete;
 using Business.Concrete.Branch;
+using Business.Concrete.Images;
 using DataAccess.Abstract.Branch;
+using DataAccess.Abstract.Images;
 using DataAccess.Abstract.Users;
 using DataAccess.Concrete.Branch;
+using DataAccess.Concrete.Images;
 using DataAccess.Concrete.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -47,6 +51,8 @@ namespace JJMonitoring.UI
             services.AddScoped<IUsersDal, EfUsersDal>();
             services.AddScoped<IBranchDal, EfBranchDal>();
             services.AddScoped<IBranchService, BranchManager>();
+            services.AddScoped<IImageDal, EfImageDal>();
+            services.AddScoped<IImageService, ImageManager>();
 
         }
 
