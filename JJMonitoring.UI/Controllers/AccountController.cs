@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace JJMonitoring.UI.Controllers
-{
+{ 
     public class AccountController : Controller
     {
         private IUserService _userService;
